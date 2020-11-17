@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        function Cat(name) {
+            this.name = name
+            this.sayHello = function () {
+                console.log('Meow !')
+                // 如果是普通函数 setTimeout中的this应该指向window
+                // 而箭头函数指向当前代码的作用域
+                setTimeout(() => console.log('你好,我叫' +this.name), 500)
+            }
+        }
+
+        let cat = new Cat('旺财')
+
+        cat.sayHello()
+
+        // 对象的方法不要使用箭头函数
+        let cat1 = {
+            name: '阿橘',
+            sayHello: () => {
+                // 因为对象是全局声明的,他的作用域就是全局
+                // 这里的this就是全局对象
+                // console.log(this)
+            }
+        }
+
+        cat1.sayHello() // window
+    </script>
+</body>
+
+</html>
